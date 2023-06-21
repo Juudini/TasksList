@@ -4,7 +4,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Juudini/TasksList/blob/main/LICENSE) [![Netlify Status](https://api.netlify.com/api/v1/badges/e1fe5433-b244-4852-b705-36077e4a4110/deploy-status)](https://app.netlify.com/sites/juudini-tasks-list/deploys)
 
-<h2>| [DEPLOY](https://juudini-tasks-list.netlify.app/)</h2>
+<h2>| <a href='https://juudini-tasks-list.netlify.app/'>DEPLOY</a></h2>
+
 </div>
 
 <details>
