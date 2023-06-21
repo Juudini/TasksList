@@ -28,7 +28,7 @@
   </ol>
 </details>
 
-[![Spanish](https://img.shields.io/badge/language-Spanish-blue.svg)](README.es.md)
+[![English](https://img.shields.io/badge/language-English-blue.svg)](README.es.md)
 
 ## Funcionalidades
 
