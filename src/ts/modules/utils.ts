@@ -78,7 +78,7 @@ export const createTaskElement = ({
         const REMOVE_ID = removeTask.getAttribute("remove-id");
         removeTaskAction(REMOVE_ID, getItemArray, fromArray, storageKey);
 
-        // Aplicar el efecto de eliminación
+        // Effect deleting
         task.classList.add("fadeOut");
         setTimeout(() => {
             task.remove();
