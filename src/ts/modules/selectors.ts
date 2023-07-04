@@ -10,7 +10,7 @@ export let taskCompletedList = document.getElementById(
     "taskCompleted"
 ) as HTMLElement;
 export let buttonAdd = $selector("#btnAdd");
-// >fin Selectores<
+// >fin Selectors<
 
 //~~> Tabs
 export const tab1 = $selector("#ex1-tab-1") as HTMLElement;
