@@ -1,18 +1,16 @@
 import { $selector, taskCompletedList, taskInput } from "./selectors.js";
 import { completedArray } from "../index.js";
+import { getItemStorage } from "./storageUtils.js";
 export const getItemTasks = () => {
-    let tasksArray = JSON.parse(localStorage.getItem("tasks") || "[]");
-    return tasksArray;
+    return getItemStorage("tasks");
 };
 export const getItemImportant = () => {
-    let importantArray = JSON.parse(localStorage.getItem("important") || "[]");
-    return importantArray;
+    return getItemStorage("important");
 };
 const getItemCompleted = () => {
-    let completedArray = JSON.parse(localStorage.getItem("completed") || "[]");
-    return completedArray;
+    return getItemStorage("completed");
 };
-export const createTaskElement = (taskText, fromTaskList, getItemArray, fromArray, storageKey) => {
+export const createTaskElement = ({ taskText, fromTaskList, getItemArray, fromArray, storageKey, }) => {
     let task = document.createElement("li");
     task.setAttribute("class", "list-group-item d-flex align-items-center border-0 mb-2 rounded");
     let input = document.createElement("input");
@@ -72,7 +70,14 @@ const removeTaskAction = (REMOVE_ID, getItemArray, fromArray, storageKey) => {
 };
 export const printingTasks = (fromTaskList, getItem, fromArray, storageKey) => {
     fromArray.forEach((task) => {
-        createTaskElement(task, fromTaskList, getItem, fromArray, storageKey);
+        const taskParams = {
+            taskText: task,
+            fromTaskList: fromTaskList,
+            getItemArray: getItem,
+            fromArray: fromArray,
+            storageKey: storageKey,
+        };
+        createTaskElement(taskParams);
     });
 };
 export const printTaskCompleted = () => {

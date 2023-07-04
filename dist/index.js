@@ -1,8 +1,10 @@
 import { getItemTasks, getItemImportant, createTaskElement, printingTasks, printTaskCompleted, } from "./modules/utils.js";
 import { tab1, tab2, tab3, taskInput, taskList, taskImportant, buttonAdd, divTabs1, divTabs2, divTabs3, btnClear, } from "./modules/selectors.js";
-let tasksArray = JSON.parse(localStorage.getItem("tasks") || "[]");
-let importantArray = JSON.parse(localStorage.getItem("important") || "[]");
-export let completedArray = JSON.parse(localStorage.getItem("completed") || "[]");
+import { getArrayStorage } from "./modules/storageUtils.js";
+getArrayStorage;
+const tasksArray = getArrayStorage("tasks");
+const importantArray = getArrayStorage("important");
+export let completedArray = getArrayStorage("completed");
 printingTasks(taskList, getItemTasks, tasksArray, "tasks");
 printingTasks(taskImportant, getItemImportant, importantArray, "important");
 const changeArray = (tab) => {
@@ -29,7 +31,13 @@ const addTask = (e, createTaskFn, fromTaskList, getItemFrom, fromArray, storageK
     e === null || e === void 0 ? void 0 : e.preventDefault();
     if (taskInput.value !== "" && taskInput.value !== null) {
         let taskInputValue = taskInput.value;
-        createTaskFn(taskInputValue, fromTaskList, getItemFrom, fromArray, storageKey);
+        createTaskFn({
+            taskText: taskInputValue,
+            fromTaskList: fromTaskList,
+            getItemArray: getItemFrom,
+            fromArray: fromArray,
+            storageKey: storageKey,
+        });
         fromArray.push(taskInputValue);
     }
     localStorage.setItem(storageKey, JSON.stringify(fromArray));
