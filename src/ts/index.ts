@@ -19,17 +19,12 @@ import {
     divTabs3,
     btnClear,
 } from "./modules/selectors.js";
+import { getArrayStorage } from "./modules/storageUtils.js";
+getArrayStorage;
 
-//~~> Array tasks
-let tasksArray: string[] = JSON.parse(localStorage.getItem("tasks") || "[]");
-//~~> Array Important
-let importantArray: string[] = JSON.parse(
-    localStorage.getItem("important") || "[]"
-);
-//~~> Array Completed
-export let completedArray: string[] = JSON.parse(
-    localStorage.getItem("completed") || "[]"
-);
+const tasksArray: string[] = getArrayStorage("tasks");
+const importantArray: string[] = getArrayStorage("important");
+export let completedArray: string[] = getArrayStorage("completed");
 
 //Print Tasks
 printingTasks(taskList, getItemTasks, tasksArray, "tasks");
@@ -70,13 +65,13 @@ const addTask = (
     e?.preventDefault();
     if (taskInput.value !== "" && taskInput.value !== null) {
         let taskInputValue: string = taskInput.value;
-        createTaskFn(
-            taskInputValue,
-            fromTaskList,
-            getItemFrom,
-            fromArray,
-            storageKey
-        );
+        createTaskFn({
+            taskText: taskInputValue,
+            fromTaskList: fromTaskList,
+            getItemArray: getItemFrom,
+            fromArray: fromArray,
+            storageKey: storageKey,
+        });
         fromArray.push(taskInputValue); //~~> Save to Array
     }
     //~~> Up to Storage
