@@ -116,19 +116,20 @@ const removeTaskAction = (
 
 //~~> Print Task
 export const printingTasks = (
-    fromTaskList: any,
-    getItem: any,
-    fromArray: any,
+    fromTaskList: HTMLElement,
+    getItem: () => string[],
+    fromArray: string[],
     storageKey: string
 ) => {
-    fromArray.forEach((task: any) => {
-        createTaskElement({
+    fromArray.forEach((task) => {
+        const taskParams: TaskElementParams = {
             taskText: task,
             fromTaskList: fromTaskList,
             getItemArray: getItem,
             fromArray: fromArray,
             storageKey: storageKey,
-        });
+        };
+        createTaskElement(taskParams);
     });
 };
 
@@ -167,14 +168,12 @@ export const printTaskCompleted = () => {
                 completedArray,
                 "completed"
             );
-
             // Effects
             task.classList.add("fadeOut");
             setTimeout(() => {
                 task.remove();
             }, 500);
         });
-
         checkboxContainer.appendChild(input);
         let subText = document.createElement("s");
         subText.textContent = text;
