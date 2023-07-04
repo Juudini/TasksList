@@ -1,33 +1,27 @@
 import { $selector, taskCompletedList, taskInput } from "./selectors.js";
 import { completedArray } from "../index.js";
+import { getItemStorage } from "./storageUtils.js";
+import { TaskElementParams } from "./interfaces.js";
+
 // Get Item From Storage
 export const getItemTasks = () => {
-    let tasksArray: string[] = JSON.parse(
-        localStorage.getItem("tasks") || "[]"
-    );
-    return tasksArray;
+    return getItemStorage("tasks");
 };
 export const getItemImportant = () => {
-    let importantArray: string[] = JSON.parse(
-        localStorage.getItem("important") || "[]"
-    );
-    return importantArray;
+    return getItemStorage("important");
 };
 const getItemCompleted = () => {
-    let completedArray: string[] = JSON.parse(
-        localStorage.getItem("completed") || "[]"
-    );
-    return completedArray;
+    return getItemStorage("completed");
 };
 
 //~~> Create Tasks Elements
-export const createTaskElement = (
-    taskText: string,
-    fromTaskList: any,
-    getItemArray: any,
-    fromArray: string[],
-    storageKey: string
-): HTMLElement => {
+export const createTaskElement = ({
+    taskText,
+    fromTaskList,
+    getItemArray,
+    fromArray,
+    storageKey,
+}: TaskElementParams): HTMLElement => {
     let task = document.createElement("li");
     task.setAttribute(
         "class",
@@ -38,7 +32,7 @@ export const createTaskElement = (
     input.setAttribute("class", "form-check-input me-2");
     input.setAttribute("aria-label", "...");
 
-    // Eventos checkboxs
+    // Checkboxs Events
     input.addEventListener("change", function (this: HTMLInputElement) {
         const parentElement = this.parentElement!;
         if (this.checked) {
@@ -88,7 +82,7 @@ export const createTaskElement = (
         task.classList.add("fadeOut");
         setTimeout(() => {
             task.remove();
-        }, 500); // Esperar 500ms antes de eliminar completamente el elemento
+        }, 500);
     });
     //Append
     containRemove.appendChild(removeTask);
@@ -128,7 +122,13 @@ export const printingTasks = (
     storageKey: string
 ) => {
     fromArray.forEach((task: any) => {
-        createTaskElement(task, fromTaskList, getItem, fromArray, storageKey);
+        createTaskElement({
+            taskText: task,
+            fromTaskList: fromTaskList,
+            getItemArray: getItem,
+            fromArray: fromArray,
+            storageKey: storageKey,
+        });
     });
 };
 
@@ -168,7 +168,7 @@ export const printTaskCompleted = () => {
                 "completed"
             );
 
-            // Efectos
+            // Effects
             task.classList.add("fadeOut");
             setTimeout(() => {
                 task.remove();
